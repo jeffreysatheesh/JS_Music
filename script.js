@@ -144,13 +144,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 for(let i=0; i<notesToPlay; i++) {
                     const randomIdx = Math.floor(Math.random() * keys.length);
                     const key = keys[randomIdx];
-                    key.classList.add('active');
-                    setTimeout(() => {
-                        key.classList.remove('active');
-                    }, 200 + Math.random() * 200);
+                    if (key && !key.classList.contains('active')) {
+                        key.classList.add('active');
+                        setTimeout(() => {
+                            key.classList.remove('active');
+                        }, 800 + Math.random() * 400); // Keep keys lit longer
+                    }
                 }
             }
-        }, 1500); // Slower autoplay so it's less chaotic, feels more natural/Apple-like
+        }, 400); // Trigger frequently to ensure continuous animation stream
         
         // 3D Parallax & Tilt Effect based on Hero Mousemove
         const heroSection = document.querySelector('.hero');
