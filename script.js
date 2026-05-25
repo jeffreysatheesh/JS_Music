@@ -52,6 +52,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     // ==========================================
+    // Interactive Ambient Glow Tracker
+    // ==========================================
+    const ambientGlow = document.getElementById('ambient-glow');
+    if (ambientGlow) {
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            // Smoothly interpolate the coordinates using GSAP
+            gsap.to(ambientGlow, {
+                left: x,
+                top: y,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        });
+    }
+
+    // ==========================================
     // Hero Animations & Piano
     // ==========================================
     const heroTl = gsap.timeline();
@@ -59,22 +78,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
     heroTl.to(".hero h1", {
         y: 0,
         opacity: 1,
-        duration: 1.2,
+        duration: 1.4,
         ease: "power4.out",
         delay: 0.2
     })
     .to(".hero p", {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 1.2,
         ease: "power3.out"
-    }, "-=0.8")
+    }, "-=1.0")
     .to(".hero .btn-group", {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 1.2,
         ease: "power3.out"
-    }, "-=0.8");
+    }, "-=1.0");
 
     // Generate Piano Keys
     const pianoContainer = document.getElementById('hero-piano');
@@ -101,25 +120,72 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         }
         
-        // Auto-play random keys
-        setInterval(() => {
-            const notesToPlay = Math.floor(Math.random() * 3) + 1;
-            
-            for(let i=0; i<notesToPlay; i++) {
-                const randomIdx = Math.floor(Math.random() * keys.length);
-                const key = keys[randomIdx];
-                
+        // Interactive Key Press on Mouse Hover
+        keys.forEach(key => {
+            key.addEventListener('mouseenter', () => {
                 key.classList.add('active');
-                
                 setTimeout(() => {
                     key.classList.remove('active');
-                }, 150 + Math.random() * 200);
-            }
-        }, 200); 
+                }, 300);
+            });
+            key.addEventListener('mousedown', () => {
+                key.classList.add('active');
+            });
+            key.addEventListener('mouseup', () => {
+                key.classList.remove('active');
+            });
+        });
         
-        // Parallax effect for piano
+        // Ambient background autoplay logic (so it still feels alive when idle)
+        setInterval(() => {
+            // Only trigger idle play if mouse is not over the piano
+            if (!pianoContainer.matches(':hover')) {
+                const notesToPlay = Math.floor(Math.random() * 2) + 1;
+                for(let i=0; i<notesToPlay; i++) {
+                    const randomIdx = Math.floor(Math.random() * keys.length);
+                    const key = keys[randomIdx];
+                    key.classList.add('active');
+                    setTimeout(() => {
+                        key.classList.remove('active');
+                    }, 200 + Math.random() * 200);
+                }
+            }
+        }, 1500); // Slower autoplay so it's less chaotic, feels more natural/Apple-like
+        
+        // 3D Parallax & Tilt Effect based on Hero Mousemove
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const { width, height, left, top } = heroSection.getBoundingClientRect();
+                const x = e.clientX - left - width / 2;
+                const y = e.clientY - top - height / 2;
+                
+                const tiltX = (y / (height / 2)) * -6; // Tilt up/down
+                const tiltY = (x / (width / 2)) * 6;  // Tilt left/right
+                
+                gsap.to(pianoContainer, {
+                    rotateX: 60 + tiltX,
+                    rotateY: tiltY,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    overwrite: "auto"
+                });
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                gsap.to(pianoContainer, {
+                    rotateX: 60,
+                    rotateY: 0,
+                    duration: 1.5,
+                    ease: "power3.out",
+                    overwrite: "auto"
+                });
+            });
+        }
+        
+        // Parallax effect for piano on scroll
         gsap.to(".hero-piano-container", {
-            yPercent: 30,
+            yPercent: 20,
             ease: "none",
             scrollTrigger: {
                 trigger: ".hero",
@@ -130,7 +196,112 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 
-    // Removed Scroll Animations (GSAP) to prevent transparency/opacity bugs on scroll.
+    // ==========================================
+    // 3D Interactive Card Tilt Effect
+    // ==========================================
+    const tiltCards = document.querySelectorAll('.course-card, .book-card, .about-feature, .cert-card, .tutor-profile');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const { width, height, left, top } = card.getBoundingClientRect();
+            const x = e.clientX - left - width / 2;
+            const y = e.clientY - top - height / 2;
+            
+            const tiltX = (y / (height / 2)) * -8;
+            const tiltY = (x / (width / 2)) * 8;
+            
+            gsap.to(card, {
+                rotateX: tiltX,
+                rotateY: tiltY,
+                transformPerspective: 1000,
+                scale: 1.015,
+                duration: 0.5,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+                rotateX: 0,
+                rotateY: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                overwrite: "auto"
+            });
+        });
+    });
+
+    // ==========================================
+    // Smooth Apple-like Scroll animations
+    // ==========================================
+    // Select headers and trigger nice fade-in-up animations
+    const animatedHeaders = document.querySelectorAll('.section-header, .about-text h2, .tutor-section h3, .certificates-container > h3');
+    animatedHeaders.forEach(header => {
+        gsap.fromTo(header, 
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    });
+
+    // Staggered reveal for grid items
+    const grids = [
+        { parent: '.about-features', items: '.about-feature' },
+        { parent: '.certificates-grid', items: '.cert-card' },
+        { parent: '.courses-grid', items: '.course-card' },
+        { parent: '.books-grid', items: '.book-card' }
+    ];
+
+    grids.forEach(grid => {
+        const parentEl = document.querySelector(grid.parent);
+        if (parentEl) {
+            const items = parentEl.querySelectorAll(grid.items);
+            gsap.fromTo(items, 
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    stagger: 0.15,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: parentEl,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        }
+    });
+
+    // Other standalone blocks
+    const standaloneScrolls = document.querySelectorAll('.about-container, .tutor-profile, .trial-container');
+    standaloneScrolls.forEach(block => {
+        gsap.fromTo(block,
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                }
+            }
+        );
+    });
 
     // ==========================================
     // Interactive Elements & Toasts
