@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details | JS Music</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        .book-details-page {
+            padding: 120px 5% 50px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .book-details-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 4rem;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+        }
+
+        .book-details-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            aspect-ratio: 3/4;
+            object-fit: cover;
+        }
+        
+        .book-placeholder {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .book-info-large h1 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-info-large .author {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .book-info-large .price {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .book-info-large p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .book-info-large ul {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .book-info-large ul li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .book-info-large ul li span {
+            color: var(--accent);
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        @media (max-width: 900px) {
+            .book-details-container {
+                grid-template-columns: 1fr;
+                padding: 2.5rem;
+            }
+            .book-details-img, .book-placeholder {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="scrolled">
+        <a href="index.html" class="logo">
+            <span class="text-gold">JS</span> MUSIC
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li class="cart-nav-item" id="cart-nav-item"><a href="#" id="cart-nav-btn" class="text-gold" style="font-weight: 600;">🛒 Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+    </nav>
+
+    <div class="book-details-page">
+        <div class="book-details-container" id="book-container" style="position: relative;">
+            <a href="index.html#books" class="back-btn">← Back to Books</a>
+            
+            <div id="book-image-wrapper">
+                <!-- Image injected here -->
+            </div>
+            
+            <div class="book-info-large" id="book-info">
+                <!-- Info injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal from main page -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-content">
+            <button class="close-cart" id="close-cart">&times;</button>
+            <h2 class="text-gradient" style="margin-bottom: 2rem;">Your Cart</h2>
+            
+            <div class="cart-items" id="cart-items">
+                <p class="empty-cart">Your cart is empty.</p>
+            </div>
+            
+            <div class="cart-summary" id="cart-summary" style="display: none;">
+                <div class="cart-total" style="font-size: 1.5rem; font-weight: bold; margin: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    Total: <span class="text-gold">$<span id="cart-total-amount">0.00</span></span>
+                </div>
+                
+                <h3 style="margin-bottom:1rem; font-family: var(--font-main);">Secure Checkout</h3>
+                <form class="checkout-form" id="checkout-form">
+                    <input type="text" class="form-input" placeholder="Cardholder Name" required style="margin-bottom: 1rem;">
+                    <input type="text" class="form-input" placeholder="Card Number (Dummy 16 digits)" required pattern="\d{16}" title="Please enter 16 digits" style="margin-bottom: 1rem;">
+                    <div style="display:flex; gap:1rem; margin-bottom: 1rem;">
+                        <input type="text" class="form-input" placeholder="MM/YY" required pattern="\d\d/\d\d" title="MM/YY">
+                        <input type="text" class="form-input" placeholder="CVC" required pattern="\d{3,4}">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center;">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Adding to Cart -->
+    <div id="toast-container" style="position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem;"></div>
+
+    <script>
+        const booksDatabase = {
+            '1': {
+                title: "Piano Fundamentals",
+                author: "Elena Rostova",
+                price: 45.00,
+                image: "book_cover1_1779692282630.png",
+                desc: "A comprehensive guide to piano fundamentals designed for beginners and intermediate players. This 320-page hardcover takes you from your very first scales through to performing complete classical pieces with confidence.",
+                pages: "320",
+                format: "Hardcover",
+                level: "Beginner–Intermediate"
+            },
+            '2': {
+                title: "Theory Mastery",
+                author: "Dr. James Sterling",
+                price: 55.00,
+                image: "book_cover2_1779692402401.png",
+                desc: "The definitive music theory textbook used in our advanced classes. Dr. Sterling breaks down complex theoretical concepts into intuitive, easy-to-understand lessons with practical exercises throughout.",
+                pages: "480",
+                format: "Hardcover",
+                level: "Intermediate–Advanced"
+            },
+            '3': {
+                title: "Strings & Harmony",
+                author: "Marcus Chen",
+                price: 40.00,
+                isGradient: true,
+                gradient: "linear-gradient(135deg, #4a0000, #1a0000)",
+                desc: "A beautifully illustrated guide to string instruments and harmonic theory. This book bridges the gap between guitar and orchestral string knowledge, giving you a holistic understanding of string-based music.",
+                pages: "280",
+                format: "Paperback",
+                level: "All Levels"
+            },
+            '4': {
+                title: "Rhythm & Soul",
+                author: "Sarah Jenkins",
+                price: 35.00,
+                isGradient: true,
+                gradient: "linear-gradient(135deg, #001a0d, #000a05)",
+                desc: "Explore the rhythmic foundations of music across genres — from classical time signatures to jazz syncopation, gospel grooves, and contemporary beats. An essential read for any aspiring musician.",
+                pages: "250",
+                format: "Paperback",
+                level: "Beginner–Intermediate"
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookId = urlParams.get('id') || '1'; // default to 1
+            const book = booksDatabase[bookId];
+
+            if (book) {
+                // Set Image
+                const imgWrapper = document.getElementById('book-image-wrapper');
+                if (book.isGradient) {
+                    imgWrapper.innerHTML = `
+                        <div class="book-placeholder" style="background: ${book.gradient};">
+                            <h4 style="color: #d4af37; font-family: 'Playfair Display'; font-size: 2rem; text-transform: uppercase;">${book.title.replace(' & ', '<br>&<br>')}</h4>
+                        </div>
+                    `;
+                } else {
+                    imgWrapper.innerHTML = `<img src="${book.image}" alt="${book.title}" class="book-details-img">`;
+                }
+
+                // Set Info
+                const infoWrapper = document.getElementById('book-info');
+                infoWrapper.innerHTML = `
+                    <h1 class="text-gradient">${book.title}</h1>
+                    <span class="author">by ${book.author}</span>
+                    <div class="price">$${book.price.toFixed(2)}</div>
+                    <p>${book.desc}</p>
+                    <ul>
+                        <li><span>Pages</span> ${book.pages}</li>
+                        <li><span>Format</span> ${book.format}</li>
+                        <li><span>Level</span> ${book.level}</li>
+                    </ul>
+                    <button class="btn btn-primary add-to-cart-detail" style="width: 100%; text-align: center;">Add to Cart</button>
+                `;
+
+                // Add to Cart Logic
+                document.querySelector('.add-to-cart-detail').addEventListener('click', (e) => {
+                    const btn = e.target;
+                    
+                    // Add to localStorage cart to sync with index.html
+                    let currentCart = JSON.parse(localStorage.getItem('jsmusic_cart') || '[]');
+                    currentCart.push({ title: book.title, price: book.price });
+                    localStorage.setItem('jsmusic_cart', JSON.stringify(currentCart));
+                    
+                    updateLocalCartUI();
+
+                    const originalText = btn.innerText;
+                    btn.innerText = "Added!";
+                    btn.style.backgroundColor = "#4caf50";
+                    btn.style.color = "#fff";
+                    
+                    setTimeout(() => {
+                        btn.innerText = originalText;
+                        btn.style.backgroundColor = "";
+                        btn.style.color = "";
+                    }, 1000);
+                });
+            }
+
+            // Animate In
+            gsap.to(".book-details-container", {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power4.out"
+            });
+        });
+
+        // Simplified Cart sync for details page
+        function updateLocalCartUI() {
+            let currentCart = JSON.parse(localStorage.getItem('jsmusic_cart') || '[]');
+            const cartCount = document.getElementById('cart-count');
+            const cartNavItem = document.getElementById('cart-nav-item');
+            
+            if (cartCount) cartCount.innerText = currentCart.length;
+            if (cartNavItem) {
+                if (currentCart.length > 0) {
+                    cartNavItem.style.display = 'block';
+                } else {
+                    cartNavItem.style.display = 'none';
+                }
+            }
+        }
+        
+        updateLocalCartUI();
+        
+        // Cart toggle logic
+        document.getElementById('cart-nav-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('cart-modal').classList.add('active');
+            document.getElementById('cart-overlay').classList.add('active');
+            renderCartContent();
+        });
+
+        document.getElementById('close-cart').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+            document.getElementById('cart-overlay').classList.remove('active');
+        });
+
+        document.getElementById('cart-overlay').addEventListener('click', () => {
+            document.getElementById('cart-modal').classList.remove('active');
+            document.getElementById('cart-overlay').classList.remove('active');
+        });
+
+        function renderCartContent() {
+            let currentCart = JSON.parse(localStorage.getItem('jsmusic_cart') || '[]');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartSummary = document.getElementById('cart-summary');
+            const cartTotalAmount = document.getElementById('cart-total-amount');
+
+            if (currentCart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+                cartSummary.style.display = 'none';
+            } else {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+                
+                currentCart.forEach((item, index) => {
+                    total += item.price;
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'cart-item';
+                    itemEl.innerHTML = `
+                        <div>
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        </div>
+                        <button class="remove-item" data-index="${index}" style="background:none; border:none; color:var(--text-secondary); cursor:pointer;">Remove</button>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+                
+                cartTotalAmount.innerText = total.toFixed(2);
+                cartSummary.style.display = 'block';
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const idx = e.target.getAttribute('data-index');
+                        currentCart.splice(idx, 1);
+                        localStorage.setItem('jsmusic_cart', JSON.stringify(currentCart));
+                        updateLocalCartUI();
+                        renderCartContent();
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>

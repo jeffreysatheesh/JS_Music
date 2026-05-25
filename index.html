@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Music | Premium Music Academy</title>
-    <meta name="description" content="Master your musical journey at JS Music. Premium music education, resources, and free trial classes available.">
-    
+    <meta name="description"
+        content="Master your musical journey at JS Music. Premium piano, guitar, and keyboard education with 25+ years of teaching excellence. Free trial classes available.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -24,13 +29,20 @@
         <a href="#" class="logo">
             <span class="text-gold">JS</span> MUSIC
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#courses">Courses</a></li>
             <li><a href="#books">Books</a></li>
             <li><a href="#contact">Trial Class</a></li>
-            <li><a href="#" id="cart-nav-btn" class="text-gold" style="font-weight: 600;">Cart (<span id="cart-count">0</span>)</a></li>
+            <li class="cart-nav-item" id="cart-nav-item"><a href="#" id="cart-nav-btn" class="text-gold"
+                    style="font-weight: 600;">🛒 Cart (<span id="cart-count">0</span>)</a></li>
         </ul>
+        <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
     <!-- Hero Section -->
@@ -39,13 +51,14 @@
             <div id="hero-piano" class="hero-piano"></div>
             <div class="hero-overlay"></div>
         </div>
-        
+
         <div class="hero-content">
             <h1 class="reveal-text">Master Your <br><span class="text-gradient">Musical Journey</span></h1>
-            <p class="reveal-text">Experience premium music education tailored to your rhythm and soul.</p>
+            <p class="reveal-text">Experience premium music education tailored to your rhythm and soul. Piano, Guitar &
+                Keyboard classes with 25+ years of teaching excellence.</p>
             <div class="btn-group">
                 <a href="#contact" class="btn btn-primary">Book Free Trial</a>
-                <a href="#books" class="btn btn-outline">Explore Books</a>
+                <a href="#courses" class="btn btn-outline">Explore Courses</a>
             </div>
         </div>
     </section>
@@ -55,8 +68,25 @@
         <div class="about-container">
             <div class="about-text">
                 <h2 class="text-gradient">Discover the Art of Sound</h2>
-                <p>At JS Music, we believe that everyone has a unique melody waiting to be discovered. Our world-class instructors guide you through a journey of musical excellence, whether you are touching the keys for the first time or perfecting a symphony.</p>
-                <p>We combine traditional classical foundations with modern, dynamic teaching methodologies. Our state-of-the-art studios provide the perfect environment for your talent to flourish.</p>
+                <p>At JS Music, we believe that every individual carries a unique musical voice waiting to be unlocked.
+                    Founded with a passion for nurturing talent, our academy has been a cornerstone of musical
+                    excellence for over two decades.</p>
+                <p>Our <strong style="color:#fff;">Piano program</strong> takes students on a transformative journey —
+                    from understanding the fundamentals of finger placement, posture, and reading sheet music, to
+                    mastering complex classical compositions by Beethoven, Chopin, and Debussy. Whether you dream of
+                    performing at recitals or simply playing your favourite melodies, our structured curriculum adapts
+                    to your pace and aspirations.</p>
+                <p>For aspiring <strong style="color:#fff;">Guitar enthusiasts</strong>, we offer a comprehensive
+                    program that covers acoustic, classical, and electric guitar. Students learn chord progressions,
+                    fingerpicking patterns, strumming techniques, scales, and music theory — all while building the
+                    confidence to perform solo or in an ensemble.</p>
+                <p>Our <strong style="color:#fff;">Keyboard &amp; Synthesizer program</strong> bridges the gap between
+                    classical training and modern music production. Students explore sound synthesis, digital
+                    composition, and contemporary performance techniques that prepare them for the evolving landscape of
+                    music.</p>
+                <p>We combine time-honoured classical foundations with modern, dynamic teaching methodologies. Our
+                    state-of-the-art studio provides the perfect environment for your talent to flourish — equipped with
+                    grand pianos, professional-grade keyboards, acoustic treatment, and recording capabilities.</p>
             </div>
             <div class="about-image-wrapper">
                 <img src="instructor1_1779691781541.png" alt="Professional Piano Instructor" class="about-image">
@@ -64,8 +94,78 @@
             </div>
         </div>
 
-        <div class="certificates-container" style="margin-top: 8rem;">
-            <h3 class="text-gradient" style="text-align:center; font-size: 2.5rem; margin-bottom: 3rem;">Tutor Certifications</h3>
+        <!-- About Features -->
+        <div class="about-features">
+            <div class="about-feature">
+                <div class="about-feature-icon">🎵</div>
+                <h4>Personalised Curriculum</h4>
+                <p>Tailored lesson plans designed around your goals, skill level, and musical preferences.</p>
+            </div>
+            <div class="about-feature">
+                <div class="about-feature-icon">🏆</div>
+                <h4>Performance Opportunities</h4>
+                <p>Regular recitals, competitions, and concerts to showcase your progress and build confidence.</p>
+            </div>
+            <div class="about-feature">
+                <div class="about-feature-icon">📖</div>
+                <h4>Theory & Practical</h4>
+                <p>Balanced approach to music theory and hands-on practice ensures a deep, complete understanding.</p>
+            </div>
+            <div class="about-feature">
+                <div class="about-feature-icon">🎤</div>
+                <h4>Recording Studio</h4>
+                <p>Access to professional recording equipment so students can capture and share their musical journey.
+                </p>
+            </div>
+        </div>
+
+        <!-- Tutor Profile -->
+        <div class="tutor-section">
+            <h3 class="text-gradient"
+                style="text-align:center; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 3rem;">Meet Our Master
+                Tutor</h3>
+            <div class="tutor-profile">
+                <div class="tutor-image-wrapper">
+                    <img src="instructor1_1779691781541.png" alt="Master Tutor - JS Music">
+                </div>
+                <div class="tutor-details">
+                    <h3>Satheesh CC</h3>
+                    <span class="tutor-title">Founder & Principal Instructor</span>
+                    <p>Satheesh CC is a classically trained musician and passionate educator with over <strong
+                            style="color: var(--accent);">25 years of experience</strong> in teaching piano, keyboard,
+                        and guitar. Having trained under master musicians and performed across numerous stages, Satheesh
+                        founded JS Music with a singular vision: to make world-class music education accessible and
+                        deeply personal.</p>
+                    <p>His teaching philosophy centres around patience, creativity, and fostering a lifelong love for
+                        music. Each student receives individualised attention, ensuring they not only learn technique
+                        but also develop their own unique musical identity.</p>
+                    <div class="tutor-stats">
+                        <div class="tutor-stat">
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="tutor-stat">
+                            <span class="stat-number">1000+</span>
+                            <span class="stat-label">Students Taught</span>
+                        </div>
+
+                    </div>
+                    <a href="#" class="btn-download" id="download-cv-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="certificates-container">
+            <h3 class="text-gradient">Tutor Certifications</h3>
             <div class="certificates-grid">
                 <div class="cert-card">
                     <div class="cert-icon">🎓</div>
@@ -90,32 +190,85 @@
     </section>
 
     <!-- Courses Section -->
-    <section class="section courses-section" id="courses" style="background-color: #080808;">
+    <section class="section courses-section" id="courses">
         <div class="section-header">
             <h2 class="text-gradient">Our Programs</h2>
-            <p>Master your instrument with our specialized curriculum taught by world-class professionals.</p>
+            <p>Master your instrument with our specialized 1:1 curriculum taught by our master tutor with 25+ years of
+                experience. All classes conducted in Malayalam for comfortable, in-depth learning.</p>
         </div>
         <div class="courses-grid">
+            <!-- Grand Piano -->
             <div class="course-card">
                 <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=600&auto=format&fit=crop" alt="Grand Piano" class="course-image">
+                    <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=600&auto=format&fit=crop"
+                        alt="Grand Piano" class="course-image">
                 </div>
-                <h3>Grand Piano</h3>
-                <p>From classical sonatas to modern jazz, build a profound foundation in piano performance and music theory.</p>
+                <div class="course-content">
+                    <h3>Grand Piano</h3>
+                    <p><strong>From classical sonatas to modern jazz, build a profound foundation in piano performance
+                            and music theory.</strong></p>
+                    <p>Our comprehensive piano program covers everything from basic scales to advanced recital
+                        preparation.</p>
+                    <ul class="course-details-list">
+                        <li><span class="detail-label">Format</span> 1:1 Personal Sessions</li>
+                        <li><span class="detail-label">Language</span> Malayalam</li>
+                        <li><span class="detail-label">Duration</span> 45 mins / session</li>
+                        <li><span class="detail-label">Level</span> Beginner to Advanced</li>
+                        <li><span class="detail-label">Includes</span> Theory + Practical + Recital Prep</li>
+                        <li><span class="detail-label">Certificate</span> Provided on Completion</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-sm course-book-btn" data-instrument="Piano">Book Free
+                        Trial</a>
+                </div>
             </div>
+
+            <!-- Guitar -->
             <div class="course-card">
                 <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop" alt="Acoustic Guitar" class="course-image">
+                    <img src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?q=80&w=600&auto=format&fit=crop"
+                        alt="Acoustic Guitar" class="course-image">
                 </div>
-                <h3>Guitar</h3>
-                <p>Master acoustic, classical, and electric guitar techniques with our comprehensive fretboard mastery program.</p>
+                <div class="course-content">
+                    <h3>Guitar</h3>
+                    <p><strong>Master acoustic, classical, and electric guitar techniques with our comprehensive
+                            fretboard mastery program.</strong></p>
+                    <p>Learn chords, fingerpicking, strumming, and solo techniques from the ground up.</p>
+                    <ul class="course-details-list">
+                        <li><span class="detail-label">Format</span> 1:1 Personal Sessions</li>
+                        <li><span class="detail-label">Language</span> Malayalam</li>
+                        <li><span class="detail-label">Duration</span> 45 mins / session</li>
+                        <li><span class="detail-label">Level</span> Beginner to Advanced</li>
+                        <li><span class="detail-label">Includes</span> Acoustic + Electric + Theory</li>
+                        <li><span class="detail-label">Certificate</span> Provided on Completion</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-sm course-book-btn" data-instrument="Guitar">Book Free
+                        Trial</a>
+                </div>
             </div>
+
+            <!-- Keyboard & Synth -->
             <div class="course-card">
                 <div class="course-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop" alt="Synthesizer Keyboard" class="course-image">
+                    <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?q=80&w=600&auto=format&fit=crop"
+                        alt="Synthesizer Keyboard" class="course-image">
                 </div>
-                <h3>Keyboard & Synth</h3>
-                <p>Explore synthesis, modern production, and contemporary keyboard techniques for the modern digital musician.</p>
+                <div class="course-content">
+                    <h3>Keyboard</h3>
+                    <p><strong>Explore synthesis, modern production, and contemporary keyboard techniques for the modern
+                            digital musician.</strong></p>
+                    <p>Learn to create unique sounds, master digital workflows, and perform with confidence on any
+                        stage.</p>
+                    <ul class="course-details-list">
+                        <li><span class="detail-label">Format</span> 1:1 Personal Sessions</li>
+                        <li><span class="detail-label">Language</span> Malayalam</li>
+                        <li><span class="detail-label">Duration</span> 45 mins / session</li>
+                        <li><span class="detail-label">Level</span> Beginner to Advanced</li>
+                        <li><span class="detail-label">Includes</span> Theory + Practical </li>
+                        <li><span class="detail-label">Certificate</span> Provided on Completion</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary btn-sm course-book-btn" data-instrument="Keyboard">Book
+                        Free Trial</a>
+                </div>
             </div>
         </div>
     </section>
@@ -124,12 +277,14 @@
     <section class="section books-section" id="books">
         <div class="section-header">
             <h2 class="text-gradient">Curated Curriculum</h2>
-            <p>Elevate your understanding with our premium collection of music theory and practice books, authored by our master instructors.</p>
+            <p>Elevate your understanding with our premium collection of music theory and practice books, authored by
+                our master instructors. Click "View Details" to learn more about each book before adding it to your
+                cart.</p>
         </div>
 
         <div class="books-grid">
             <!-- Book 1 -->
-            <div class="book-card">
+            <div class="book-card" data-book-id="1">
                 <div class="book-image-container">
                     <img src="book_cover1_1779692282630.png" alt="Piano Fundamentals Book" class="book-image">
                 </div>
@@ -138,13 +293,14 @@
                     <span class="book-author">by Elena Rostova</span>
                     <div class="book-price">$45.00</div>
                     <div class="book-actions">
-                        <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                        <button class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                        <a href="book-details.html?id=1" class="btn btn-outline btn-sm">View Details</a>
                     </div>
                 </div>
             </div>
 
             <!-- Book 2 -->
-            <div class="book-card">
+            <div class="book-card" data-book-id="2">
                 <div class="book-image-container">
                     <img src="book_cover2_1779692402401.png" alt="Music Theory Mastery Book" class="book-image">
                 </div>
@@ -153,17 +309,20 @@
                     <span class="book-author">by Dr. James Sterling</span>
                     <div class="book-price">$55.00</div>
                     <div class="book-actions">
-                        <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                        <button class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                        <a href="book-details.html?id=2" class="btn btn-outline btn-sm">View Details</a>
                     </div>
                 </div>
             </div>
 
             <!-- Book 3 -->
-            <div class="book-card">
+            <div class="book-card" data-book-id="3">
                 <div class="book-image-container">
-                    <!-- Since book 3 image failed to generate, using CSS gradient placeholder to maintain premium feel -->
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #4a0000, #1a0000); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; border: 1px solid #d4af37;">
-                        <h4 style="color: #d4af37; font-family: 'Playfair Display'; font-size: 1.5rem; text-transform: uppercase;">Strings<br>&<br>Harmony</h4>
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #4a0000, #1a0000); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; border: 1px solid #d4af37;">
+                        <h4
+                            style="color: #d4af37; font-family: 'Playfair Display'; font-size: 1.5rem; text-transform: uppercase;">
+                            Strings<br>&amp;<br>Harmony</h4>
                     </div>
                 </div>
                 <div class="book-info">
@@ -171,16 +330,20 @@
                     <span class="book-author">by Marcus Chen</span>
                     <div class="book-price">$40.00</div>
                     <div class="book-actions">
-                        <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                        <button class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                        <a href="book-details.html?id=3" class="btn btn-outline btn-sm">View Details</a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Book 4 -->
-            <div class="book-card">
+            <div class="book-card" data-book-id="4">
                 <div class="book-image-container">
-                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #001a0d, #000a05); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; border: 1px solid #d4af37;">
-                        <h4 style="color: #d4af37; font-family: 'Playfair Display'; font-size: 1.5rem; text-transform: uppercase;">Rhythm<br>&<br>Soul</h4>
+                    <div
+                        style="width: 100%; height: 100%; background: linear-gradient(135deg, #001a0d, #000a05); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; border: 1px solid #d4af37;">
+                        <h4
+                            style="color: #d4af37; font-family: 'Playfair Display'; font-size: 1.5rem; text-transform: uppercase;">
+                            Rhythm<br>&amp;<br>Soul</h4>
                     </div>
                 </div>
                 <div class="book-info">
@@ -188,7 +351,8 @@
                     <span class="book-author">by Sarah Jenkins</span>
                     <div class="book-price">$35.00</div>
                     <div class="book-actions">
-                        <button class="btn btn-primary add-to-cart">Add to Cart</button>
+                        <button class="btn btn-primary btn-sm add-to-cart">Add to Cart</button>
+                        <a href="book-details.html?id=4" class="btn btn-outline btn-sm">View Details</a>
                     </div>
                 </div>
             </div>
@@ -200,39 +364,66 @@
         <div class="trial-container">
             <div class="trial-info">
                 <h2 class="text-gradient">Begin Your Story</h2>
-                <p>Ready to discover your potential? Book a complimentary 45-minute trial class with one of our expert instructors. No commitment required.</p>
-                <div style="margin-top: 3rem;">
-                    <p style="color: var(--accent); margin-bottom: 0.5rem; font-weight: 600;">Visit Our Studio</p>
-                    <p>123 Symphony Avenue<br>Arts District, NY 10012</p>
-                    <br>
-                    <p style="color: var(--accent); margin-bottom: 0.5rem; font-weight: 600;">Contact</p>
-                    <p>hello@jsmusic.edu<br>+1 (555) 123-4567</p>
+                <p>Ready to discover your potential? Book a complimentary 45-minute trial class with our master tutor.
+                    Experience our 1:1 teaching methodology firsthand — no commitment, no pressure.</p>
+                <div class="studio-info-card">
+                    <div class="info-item">
+                        <span class="icon">📍</span>
+                        <div>
+                            <strong>Visit Our Studio</strong>
+                            <p>123 Symphony Avenue, Arts District, NY 10012</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="icon">📞</span>
+                        <div>
+                            <strong>Contact Us</strong>
+                            <p>hello@jsmusic.edu <br> +1 (555) 123-4567</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
             <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-            <form class="contact-form" id="trial-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfbjrbUgpOl2P_plfUFCYYSudVrtXFjuULYB85UL8J6a5YUUQ/formResponse" method="POST" target="hidden_iframe">
-                <div class="form-group">
-                    <input type="text" id="name" name="entry.2005620554" class="form-input" placeholder="Name" required>
-                    <label for="name" class="form-label">Full Name</label>
-                </div>
-                <div class="form-group">
-                    <input type="email" id="email" name="entry.1045781291" class="form-input" placeholder="Email" required>
-                    <label for="email" class="form-label">Email Address</label>
-                </div>
-                <div class="form-group">
-                    <input type="tel" id="phone" class="form-input" placeholder="Phone">
-                    <label for="phone" class="form-label">Phone Number</label>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="instrument" class="form-input" placeholder="Instrument" required>
-                    <label for="instrument" class="form-label">Instrument of Interest</label>
-                </div>
-                <!-- Hidden field to combine phone and instrument into the Google Form 'Message' field -->
-                <input type="hidden" name="entry.1065046570" id="hidden-message-field">
-                
-                <button type="submit" class="btn btn-primary" id="trial-submit-btn" style="margin-top: 1rem;">Book Free Trial</button>
-            </form>
+            <div class="form-wrapper">
+                <form class="contact-form glass-form" id="trial-form"
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSfbjrbUgpOl2P_plfUFCYYSudVrtXFjuULYB85UL8J6a5YUUQ/formResponse"
+                    method="POST" target="hidden_iframe">
+                    <h3 style="margin-bottom: 1.5rem; color: #fff;">Book a Free Session</h3>
+                    <div class="form-group">
+                        <input type="text" id="name" name="entry.2005620554" class="form-input" placeholder="Name"
+                            required>
+                        <label for="name" class="form-label">Full Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="entry.1045781291" class="form-input" placeholder="Email"
+                            required>
+                        <label for="email" class="form-label">Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" class="form-input" placeholder="Phone">
+                        <label for="phone" class="form-label">Phone Number</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="instrument" class="form-input" required
+                            style="background: rgba(0,0,0,0.5); color: #fff; cursor: pointer;">
+                            <option value="" disabled selected hidden>Select Instrument</option>
+                            <option value="Piano">Grand Piano</option>
+                            <option value="Guitar">Guitar</option>
+                            <option value="Keyboard">Keyboard & Synth</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="entry.1065046570" id="hidden-message-field">
+
+                    <button type="submit" class="btn btn-primary submit-btn" id="trial-submit-btn">
+                        <span>Confirm Booking</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
 
@@ -244,8 +435,9 @@
         <div class="footer-links">
             <a href="#home">Home</a>
             <a href="#about">About</a>
+            <a href="#courses">Courses</a>
             <a href="#books">Books</a>
-            <a href="#contact">Trial</a>
+            <a href="#contact">Trial Class</a>
         </div>
         <p class="copyright">&copy; 2026 JS Music Academy. All rights reserved.</p>
     </footer>
@@ -256,30 +448,41 @@
         <div class="cart-content">
             <button class="close-cart" id="close-cart">&times;</button>
             <h2 class="text-gradient" style="margin-bottom: 2rem;">Your Cart</h2>
-            
+
             <div class="cart-items" id="cart-items">
                 <p class="empty-cart">Your cart is empty.</p>
             </div>
-            
+
             <div class="cart-summary" id="cart-summary" style="display: none;">
-                <div class="cart-total" style="font-size: 1.5rem; font-weight: bold; margin: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                <div class="cart-total"
+                    style="font-size: 1.5rem; font-weight: bold; margin: 1.5rem 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
                     Total: <span class="text-gold">$<span id="cart-total-amount">0.00</span></span>
                 </div>
-                
+
                 <h3 style="margin-bottom:1rem; font-family: var(--font-main);">Secure Checkout</h3>
                 <form class="checkout-form" id="checkout-form">
-                    <input type="text" class="form-input" placeholder="Cardholder Name" required style="margin-bottom: 1rem;">
-                    <input type="text" class="form-input" placeholder="Card Number (Dummy 16 digits)" required pattern="\d{16}" title="Please enter 16 digits" style="margin-bottom: 1rem;">
+                    <input type="text" class="form-input" placeholder="Cardholder Name" required
+                        style="margin-bottom: 1rem;">
+                    <input type="text" class="form-input" placeholder="Card Number (Dummy 16 digits)" required
+                        pattern="\d{16}" title="Please enter 16 digits" style="margin-bottom: 1rem;">
                     <div style="display:flex; gap:1rem; margin-bottom: 1rem;">
-                        <input type="text" class="form-input" placeholder="MM/YY" required pattern="\d\d/\d\d" title="MM/YY">
+                        <input type="text" class="form-input" placeholder="MM/YY" required pattern="\d\d/\d\d"
+                            title="MM/YY">
                         <input type="text" class="form-input" placeholder="CVC" required pattern="\d{3,4}">
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center;">Pay Now</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%; text-align:center;">Pay
+                        Now</button>
                 </form>
             </div>
         </div>
     </div>
 
     <script src="script.js"></script>
+
+    <!-- Custom Toast Container -->
+    <div id="toast-container"
+        style="position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem;">
+    </div>
 </body>
+
 </html>
